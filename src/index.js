@@ -38,7 +38,20 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    let key = Object.keys(MORSE_TABLE).map(morse => morse.replace(/\./g, '10')).map(morse => morse.replace(/\-/g, '11')).map(morse => morse.padStart(10, '0'));
+    let value = Object.values(MORSE_TABLE);
+
+
+    let result = '';
+    expr = expr.match(/.{1,10}/g);
+    expr.forEach(element => {
+        if (element.includes('*')) {
+            result += ' ';
+        } else {
+            result += value[key.indexOf(element)];
+        }
+    })
+    return result;
 }
 
 module.exports = {
